@@ -43,7 +43,20 @@ describe('Builder', function() {
             csslint: true,
             fail: true,
             parent: {}
-        }, function(content) {
+        }, undefined, function(content) {
+          assert.equal(uglifycss.processString(content, {}), result);
+        });
+    });
+    it('content with skin', function () {
+        var result = '.someClass{display:none}#yui3-css-stamp.skin-yeah-test{display:none}';
+        builder.buildCss(fs.readFileSync(path.join(mocks, 'css', 'css.css'), 'utf8'),
+          target, 'test', 'test', {
+            target: target,
+            replace: {},
+            csslint: true,
+            fail: true,
+            parent: {}
+        }, 'yeah', function(content) {
           assert.equal(uglifycss.processString(content, {}), result);
         });
     });
